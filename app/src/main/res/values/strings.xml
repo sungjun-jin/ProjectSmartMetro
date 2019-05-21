@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ProjectSmartMetro</string>
+    <string name="odsay_key">gbiQT+7PY6xA5hGIvtMCF6z6FQmpdiMI0D/MLvDaY3YY</string>
+    <string name="title_activity_subway_map">Map</string>
+</resources>
