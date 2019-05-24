@@ -12,16 +12,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
-
 import com.odsay.odsayandroidsdk.API;
 import com.odsay.odsayandroidsdk.ODsayData;
 import com.odsay.odsayandroidsdk.ODsayService;
 import com.odsay.odsayandroidsdk.OnResultCallbackListener;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 
@@ -84,7 +81,7 @@ public class NearSubway extends AppCompatActivity {
                     recyclerViewMap.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 }
             } catch (JSONException e) {
-                e.printStackTrace();
+                e.printStackTrace(); //오류메시지 출력
                 Log.d("DEBUG_CODE", e.getMessage());
             }
         }

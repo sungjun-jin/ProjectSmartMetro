@@ -23,7 +23,8 @@ public class StationInfo extends AppCompatActivity {
     Station station = new Station(); //현재역 정보를 담을 클래스
     Station prevStation = new Station(); //이전역 정보를 담을 클래스
     Station nextStation = new Station(); //다음역 정보를 담을 클래스
-    TextView textPrevious, textStation, textNext, textAddress, textTel;
+
+    TextView textPrevious, textStation, textNext, textAddress, textTel, textLaneName; //TextView 위젯 선언
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class StationInfo extends AppCompatActivity {
         textNext = findViewById(R.id.textNext); //다음역역
         textAddress = findViewById(R.id.textAddress); //현재역 도로명 주소
         textTel = findViewById(R.id.textTel); //현재역 전화번호
+        textLaneName = findViewById(R.id.textLaneName); //현재역 호선명
 
 
         Intent intent = getIntent();
@@ -47,6 +49,7 @@ public class StationInfo extends AppCompatActivity {
         odsayService.setReadTimeout(5000);
         // 데이터 획득 제한 시간(단위(초), default : 5초)
         odsayService.setConnectionTimeout(5000);
+
         odsayService.requestSubwayStationInfo(Integer.toString(ID), onResultCallbackListener);
 
         textNext.setOnClickListener(new View.OnClickListener() {
@@ -90,15 +93,17 @@ public class StationInfo extends AppCompatActivity {
                 // API Value 는 API 호출 메소드 명을 따라갑니다.
                 if (api == API.SUBWAY_STATION_INFO) {
                     //현재 역의 정보를 가져옴
-                    station.stationName = odsayData.getJson().getJSONObject("result").getString("stationName");
-                    station.stationID = odsayData.getJson().getJSONObject("result").getInt("stationID");
-                    station.latitude = odsayData.getJson().getJSONObject("result").getDouble("x");
-                    station.longitude = odsayData.getJson().getJSONObject("result").getDouble("y");
+                    station.stationName = odsayData.getJson().getJSONObject("result").getString("stationName");//역 명
+                    station.laneName = odsayData.getJson().getJSONObject("result").getString("laneName"); //호선 명
+                    station.stationID = odsayData.getJson().getJSONObject("result").getInt("stationID"); //역 ID
+                    station.latitude = odsayData.getJson().getJSONObject("result").getDouble("x"); //역 위도
+                    station.longitude = odsayData.getJson().getJSONObject("result").getDouble("y"); //역 경도
                     String stationDefaultInfo = odsayData.getJson().getJSONObject("result").getString("defaultInfo"); //현재 지하철역의 추가정보 (주소, 전화번호)를 담은 JSON
                     Log.d("DEBUG_CODE", "success");
                     stationListjsonParser(stationDefaultInfo);
 
                     textStation.setText(station.stationName);
+                    textLaneName.setText(station.laneName);
                     textAddress.setText(station.address);
                     textTel.setText(station.tel);
                     //여기까지 현재역
@@ -207,6 +212,7 @@ public class StationInfo extends AppCompatActivity {
             for (int i = 0; i < jarray.length(); i++) {
 
                 JSONObject jsonObject = jarray.getJSONObject(i);
+
 
                 //데이터들을 데이터 클래스 (Station)에 담아준다
                 nextStation.stationName = jsonObject.getString("stationName"); //다음역의 이름

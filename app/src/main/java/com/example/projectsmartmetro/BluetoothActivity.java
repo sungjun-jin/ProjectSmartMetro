@@ -5,8 +5,10 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import app.akexorcist.bluetotohspp.library.BluetoothSPP;
@@ -16,14 +18,15 @@ import app.akexorcist.bluetotohspp.library.DeviceList;
 public class BluetoothActivity extends AppCompatActivity {
 
     private BluetoothSPP bt;
+    ImageView imageView;
 
-    //블루투스로 지하철 내의 좌석 표시 (5.20 미구현)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
         bt = new BluetoothSPP(this); //Initializing
 
+        imageView = findViewById(R.id.imageView);
         if (!bt.isBluetoothAvailable()) { //블루투스 사용 불가
             Toast.makeText(getApplicationContext()
                     , "Bluetooth is not available"
@@ -33,7 +36,21 @@ public class BluetoothActivity extends AppCompatActivity {
 
         bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() { //데이터 수신
             public void onDataReceived(byte[] data, String message) {
-                Toast.makeText(BluetoothActivity.this, message, Toast.LENGTH_SHORT).show();
+                Log.d("DEBUG_CODE", "message : " + message);
+
+                //블루투스 데이터 수신
+                //1 - 착석 0 - 공석
+
+
+                if (message.equals("1")) {
+                    Log.d("DEBUG_CODE", "seated");
+                    imageView.setImageResource(R.drawable.seated_left);
+
+
+                } else if (message.equals("0")) {
+                    Log.d("DEBUG_CODE", "vacant");
+                    imageView.setImageResource(R.drawable.vacant_left);
+                }
             }
         });
 
@@ -91,7 +108,7 @@ public class BluetoothActivity extends AppCompatActivity {
         Button btnSend = findViewById(R.id.btnSend); //데이터 전송
         btnSend.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                bt.send("Capstone bluetooth test...", true);
+                bt.send("Text", true);
             }
         });
     }

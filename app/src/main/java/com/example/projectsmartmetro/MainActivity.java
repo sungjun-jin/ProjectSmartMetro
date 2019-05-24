@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     //주변 지하철역 검색
     TextView textPointSearch, textTimeTable, textStationSearch;
+    Button btnBlueTooth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         textPointSearch = findViewById(R.id.textPointSearch);
         textTimeTable = findViewById(R.id.textTimeTable);
         textStationSearch = findViewById(R.id.textStationSearch);
+        btnBlueTooth = findViewById(R.id.btnBlueTooth);
 
         goMenu();
     }
@@ -40,6 +43,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //지하철역 검색
                 Intent intent = new Intent(getApplicationContext(), StationSearch.class);
+                startActivity(intent);
+            }
+        });
+
+        btnBlueTooth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(), BluetoothActivity.class);
                 startActivity(intent);
             }
         });
