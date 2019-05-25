@@ -1,6 +1,10 @@
 package com.example.projectsmartmetro;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +21,22 @@ import com.odsay.odsayandroidsdk.OnResultCallbackListener;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class StationInfo extends AppCompatActivity {
 
@@ -26,6 +46,11 @@ public class StationInfo extends AppCompatActivity {
 
     TextView textPrevious, textStation, textNext, textAddress, textTel, textLaneName; //TextView 위젯 선언
 
+    //OKHttp - > 안드로이드 http 커넥션을 쉽게 도와주는 라이브러리 사용
+    OkHttpClient okHttpClient;
+
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +63,10 @@ public class StationInfo extends AppCompatActivity {
         textAddress = findViewById(R.id.textAddress); //현재역 도로명 주소
         textTel = findViewById(R.id.textTel); //현재역 전화번호
         textLaneName = findViewById(R.id.textLaneName); //현재역 호선명
+
+        okHttpClient = new OkHttpClient();
+
+
 
 
         Intent intent = getIntent();
@@ -80,7 +109,56 @@ public class StationInfo extends AppCompatActivity {
             }
         });
 
+        getSubwayArrivalTime("http://swopenapi.seoul.go.kr/api/subway/6f4547614b64616437345459424244/json/realtimeStationArrival/0/5/%EC%9D%B8%EC%B2%9C");
 
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+
+    public String getStationArrivalUrl(String url) throws IOException {
+        //okhttp 실행
+        //MainThread에서 동작하기 때문에 사용하기 위해서는 AsyncTask같은 쓰레드 요구를 써야함
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        //내부적으로 httpUrlConnection 클래스를 처리
+        //Reponse -> 응답 정보 클래스
+        try (Response response = okHttpClient.newCall(request).execute()) {
+            return response.body().string();
+        }
+    }
+
+    private  void getSubwayArrivalTime(final String urlString) {
+
+        //지하철역의 도착시간을 알려주는 함수
+        //서울열린데이터광장 지하철 도착 정보 api사용 (OdsayAPI 미사용)
+
+        AsyncTask asyncTask = new AsyncTask<Object, Void, String>() {
+            @TargetApi(Build.VERSION_CODES.KITKAT)
+            @Override
+            protected String doInBackground(Object... objects) {
+
+                //백그라운드에서 동작
+                String data = "";
+
+                try {
+                     data = getStationArrivalUrl(urlString);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return data;
+            }
+
+            @Override
+            protected void onPostExecute(String str) {
+
+                Log.d("DEBUG_CODE","지하철 도착정보" + str);
+
+
+
+            }
+        };
+        asyncTask.execute(urlString);
     }
 
     OnResultCallbackListener onResultCallbackListener = new OnResultCallbackListener() {
@@ -235,3 +313,4 @@ public class StationInfo extends AppCompatActivity {
 
 
 }
+

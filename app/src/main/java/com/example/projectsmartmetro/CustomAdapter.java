@@ -49,8 +49,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.Holder> {
 
                 //리사이클러 뷰의 아이템을 선택했을 시
                 Station stationSelected = data.get(position);
-                //선택된 역의 ID번호를 토스트로  출력
-                Toast.makeText(view.getContext(), stationSelected.stationID + "선택됨", Toast.LENGTH_SHORT).show();
                 //StationSearch(지하철 세부정보) Activity로 stationID를 가지고 넘어감
                 Intent intent = new Intent(view.getContext(), StationInfo.class);
                 intent.putExtra("stationID", stationSelected.stationID);

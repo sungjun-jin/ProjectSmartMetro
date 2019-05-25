@@ -37,5 +37,6 @@ dependencies {
     implementation project(':ODsayAndroidSDK')
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.5.0'
 
 }
