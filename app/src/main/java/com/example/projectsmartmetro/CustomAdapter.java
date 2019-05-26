@@ -52,6 +52,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.Holder> {
                 //StationSearch(지하철 세부정보) Activity로 stationID를 가지고 넘어감
                 Intent intent = new Intent(view.getContext(), StationInfo.class);
                 intent.putExtra("stationID", stationSelected.stationID);
+                intent.putExtra("stationName",stationSelected.stationName);
                 view.getContext().startActivity(intent);
 
             }

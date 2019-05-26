@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         textPointSearch = findViewById(R.id.textPointSearch);
         textTimeTable = findViewById(R.id.textTimeTable);
         textStationSearch = findViewById(R.id.textStationSearch);
-        btnBlueTooth = findViewById(R.id.btnBlueTooth);
+        btnBlueTooth = findViewById(R.id.btnUpSeat);
 
         goMenu();
     }
@@ -33,8 +33,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //주변 지하철 역 검색
-                Intent intent = new Intent(getApplicationContext(), NearSubway.class);
-                startActivity(intent);
+
             }
         });
 
@@ -43,15 +42,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //지하철역 검색
                 Intent intent = new Intent(getApplicationContext(), StationSearch.class);
-                startActivity(intent);
-            }
-        });
-
-        btnBlueTooth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intent = new Intent(getApplicationContext(), BluetoothActivity.class);
                 startActivity(intent);
             }
         });

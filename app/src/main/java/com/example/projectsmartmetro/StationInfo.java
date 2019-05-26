@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -44,10 +46,12 @@ public class StationInfo extends AppCompatActivity {
     Station prevStation = new Station(); //이전역 정보를 담을 클래스
     Station nextStation = new Station(); //다음역 정보를 담을 클래스
 
-    TextView textPrevious, textStation, textNext, textAddress, textTel, textLaneName; //TextView 위젯 선언
+    TextView textPrevious, textStation, textNext, textAddress, textTel, textLaneName, textArrival; //TextView 위젯 선언
 
     //OKHttp - > 안드로이드 http 커넥션을 쉽게 도와주는 라이브러리 사용
     OkHttpClient okHttpClient;
+
+    Button btnRefresh, btnDownSeat, btnUpSeat,btnNear;
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -63,15 +67,21 @@ public class StationInfo extends AppCompatActivity {
         textAddress = findViewById(R.id.textAddress); //현재역 도로명 주소
         textTel = findViewById(R.id.textTel); //현재역 전화번호
         textLaneName = findViewById(R.id.textLaneName); //현재역 호선명
+        textArrival = findViewById(R.id.textArrival); //현재역 도착정보
 
         okHttpClient = new OkHttpClient();
 
-
+        btnUpSeat = findViewById(R.id.btnUpSeat);
+        btnDownSeat = findViewById(R.id.btnDownSeat);
+        btnRefresh = findViewById(R.id.btnReFresh);
+        btnNear = findViewById(R.id.btnNear);
 
 
         Intent intent = getIntent();
         //넘겨받은 지하철의 ID를 담을 변수, 이걸 토대로 정류장 정보를 가져올거임
         int ID = intent.getIntExtra("stationID", 0);
+        String stationName = intent.getStringExtra("stationName");
+        station.stationName = stationName;
         Log.d("DEBUG_CODE", "넘어온 정류장 ID: " + ID);
         ODsayService odsayService = ODsayService.init(getApplicationContext(), "gbiQT+7PY6xA5hGIvtMCF6z6FQmpdiMI0D/MLvDaY3Y");
         // 서버 연결 제한 시간(단위(초), default : 5초)
@@ -88,6 +98,7 @@ public class StationInfo extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), StationInfo.class); //현재 액티비티와 동일한 액티비티를 호출하지만 데이터가 다르다
                 intent.putExtra("stationID", nextStation.stationID);
+                intent.putExtra("stationName", nextStation.stationName);
 
                 startActivity(intent);
                 finish(); //현재 액티비티 종료
@@ -103,14 +114,60 @@ public class StationInfo extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), StationInfo.class); //현재 액티비티와 동일한 액티비티를 호출하지만 데이터가 다르다
                 intent.putExtra("stationID", prevStation.stationID);
+                intent.putExtra("stationName", prevStation.stationName);
 
                 startActivity(intent);
                 finish();  //현재 액티비티 종료
             }
         });
 
-        getSubwayArrivalTime("http://swopenapi.seoul.go.kr/api/subway/6f4547614b64616437345459424244/json/realtimeStationArrival/0/5/%EC%9D%B8%EC%B2%9C");
 
+        String URL = "http://swopenapi.seoul.go.kr/api/subway/6f4547614b64616437345459424244/json/realtimeStationArrival/0/5/";
+        URL = URL.concat(stationName);
+        Log.d("DEBUG_CODE","URL : " + URL);
+
+
+        final String finalURL = URL;
+
+        getSubwayArrivalTime(finalURL);
+
+        btnRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getSubwayArrivalTime(finalURL);
+            }
+        });
+
+        btnDownSeat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(), BluetoothActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+        btnUpSeat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(), BluetoothActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnNear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //주변역 찾기
+                Intent intent = new Intent(getApplicationContext(), NearSubway.class);
+                intent.putExtra("stationX", station.longitude);
+                intent.putExtra("stationY",station.latitude);
+
+                startActivity(intent);
+            }
+        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -128,7 +185,8 @@ public class StationInfo extends AppCompatActivity {
         }
     }
 
-    private  void getSubwayArrivalTime(final String urlString) {
+
+    private void getSubwayArrivalTime(final String urlString) {
 
         //지하철역의 도착시간을 알려주는 함수
         //서울열린데이터광장 지하철 도착 정보 api사용 (OdsayAPI 미사용)
@@ -142,7 +200,8 @@ public class StationInfo extends AppCompatActivity {
                 String data = "";
 
                 try {
-                     data = getStationArrivalUrl(urlString);
+                    data = getStationArrivalUrl(urlString);
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -150,10 +209,39 @@ public class StationInfo extends AppCompatActivity {
             }
 
             @Override
-            protected void onPostExecute(String str) {
+            protected void onPostExecute(String stationArrivalUrl) {
+                try {
+                    JSONObject jsonMainObject = new JSONObject(stationArrivalUrl);
+                    String realtimeArrivalList = jsonMainObject.getString("realtimeArrivalList");
+                    JSONArray jsonArray = new JSONArray(realtimeArrivalList);
 
-                Log.d("DEBUG_CODE","지하철 도착정보" + str);
+                    String tempArrive = " ";
+                    String tempTrainLineNm = "";
+                    String arrivalMessage = "";
 
+                    for (int i = 0; i < jsonArray.length(); i++) {
+
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                        //데이터들을 데이터 클래스 (Station)에 담아준다
+                        tempTrainLineNm = jsonObject.getString("trainLineNm");
+                        tempArrive = jsonObject.getString("arvlMsg2"); //다음역의 이름
+
+                        arrivalMessage += tempTrainLineNm + " : " + tempArrive + "\n\n";
+
+
+                    }
+                    Log.d("DEBUG_CODE", "arrive : " + arrivalMessage);
+                    Log.d("DEBUG_CODE", "parsing success");
+
+                    textArrival.setText(arrivalMessage);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.d("DEBUG_CODE", e.getMessage());
+                }
+                //도착정보 url에 대한 처리는 여기서 해준다.
 
 
             }
@@ -172,6 +260,7 @@ public class StationInfo extends AppCompatActivity {
                 if (api == API.SUBWAY_STATION_INFO) {
                     //현재 역의 정보를 가져옴
                     station.stationName = odsayData.getJson().getJSONObject("result").getString("stationName");//역 명
+
                     station.laneName = odsayData.getJson().getJSONObject("result").getString("laneName"); //호선 명
                     station.stationID = odsayData.getJson().getJSONObject("result").getInt("stationID"); //역 ID
                     station.latitude = odsayData.getJson().getJSONObject("result").getDouble("x"); //역 위도

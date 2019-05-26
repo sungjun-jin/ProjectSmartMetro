@@ -2,6 +2,7 @@ package com.example.projectsmartmetro;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -12,13 +13,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
+
 import com.odsay.odsayandroidsdk.API;
 import com.odsay.odsayandroidsdk.ODsayData;
 import com.odsay.odsayandroidsdk.ODsayService;
 import com.odsay.odsayandroidsdk.OnResultCallbackListener;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 
@@ -34,6 +38,7 @@ public class NearSubway extends AppCompatActivity {
     // 주변 역정보를 보여주는 액티비티
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_near_subway);
         recyclerViewMap = findViewById(R.id.recyclerViewMap);
@@ -46,18 +51,20 @@ public class NearSubway extends AppCompatActivity {
         // 데이터 획득 제한 시간(단위(초), default : 5초)
         odsayService.setConnectionTimeout(5000);
 
-        Location userLocation = getMyLocation(locationManager);
+        Intent intent = getIntent();
+//        int ID = intent.getIntExtra("stationID", 0);
 
-        if (userLocation != null) {
+        double longitude = intent.getDoubleExtra("stationX",0);
+        double latitude = intent.getDoubleExtra("stationY",0);
+        strLatitude = Double.toString(latitude);
+        strLongitude = Double.toString(longitude);
 
-            strLatitude = Double.toString(userLocation.getLatitude());
-            strLongitude = Double.toString(userLocation.getLongitude());
+        Log.d("DEBUG_CODE","x : " + strLongitude);
+        Log.d("DEBUG_CODE","y : " + strLatitude);
 
-
-        }
 
         // API 호출
-        odsayService.requestPointSearch(strLongitude, strLatitude, "1000", "2", onResultCallbackListener);
+        odsayService.requestPointSearch(strLongitude, strLatitude, "500", "2", onResultCallbackListener);
     }
 
 
@@ -97,28 +104,6 @@ public class NearSubway extends AppCompatActivity {
         }
 
     };
-
-    private Location getMyLocation(LocationManager locationManager) {
-
-        Location currentLocation = null;
-
-        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            //권한 요청 승인이 없을 시
-            //사용자에게 권한 요청을 한다.
-
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 001);
-            getMyLocation(locationManager);
-
-        } else {
-
-            String locationProvider = LocationManager.GPS_PROVIDER;
-            currentLocation = locationManager.getLastKnownLocation(locationProvider);
-
-        }
-        return currentLocation;
-    }
 
     public void stationListjsonParser(String jsonString) {
 
