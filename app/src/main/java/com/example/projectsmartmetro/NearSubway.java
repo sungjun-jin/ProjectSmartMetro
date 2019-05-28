@@ -1,12 +1,8 @@
 package com.example.projectsmartmetro;
 
-import android.Manifest;
-import android.content.Context;
+
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationManager;
-import android.support.v4.app.ActivityCompat;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,8 +38,8 @@ public class NearSubway extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_near_subway);
         recyclerViewMap = findViewById(R.id.recyclerViewMap);
+
         setTitle("주변역 찾기");
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         //위치 관리자 객체 참조
         ODsayService odsayService = ODsayService.init(getApplicationContext(), "gbiQT+7PY6xA5hGIvtMCF6z6FQmpdiMI0D/MLvDaY3Y");
         // 서버 연결 제한 시간(단위(초), default : 5초)
@@ -52,10 +48,9 @@ public class NearSubway extends AppCompatActivity {
         odsayService.setConnectionTimeout(5000);
 
         Intent intent = getIntent();
-//        int ID = intent.getIntExtra("stationID", 0);
 
-        double longitude = intent.getDoubleExtra("stationX",0);
-        double latitude = intent.getDoubleExtra("stationY",0);
+        double longitude = intent.getDoubleExtra("stationX",0); //호출한 액티비티로 부터 x좌표를 전달받는다
+        double latitude = intent.getDoubleExtra("stationY",0);//호출한 액티비티로 부터 y좌표를 전달받는다
         strLatitude = Double.toString(latitude);
         strLongitude = Double.toString(longitude);
 
@@ -63,8 +58,8 @@ public class NearSubway extends AppCompatActivity {
         Log.d("DEBUG_CODE","y : " + strLatitude);
 
 
-        // API 호출
-        odsayService.requestPointSearch(strLongitude, strLatitude, "500", "2", onResultCallbackListener);
+        // API 호출 호출한 액티비티의 x,y좌표로부터 반경 3km 안의 역들을 호출
+        odsayService.requestPointSearch(strLatitude, strLongitude, "3000", "2", onResultCallbackListener);
     }
 
 

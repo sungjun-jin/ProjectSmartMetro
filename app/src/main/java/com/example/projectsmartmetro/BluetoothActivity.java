@@ -18,7 +18,7 @@ import app.akexorcist.bluetotohspp.library.DeviceList;
 public class BluetoothActivity extends AppCompatActivity {
 
     private BluetoothSPP bt;
-    ImageView imageView;
+    ImageView imageView1,imageView2,imageView3,imageView4,imageView5,imageView6,imageView7,imageView8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,16 @@ public class BluetoothActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bluetooth);
         bt = new BluetoothSPP(this); //Initializing
 
-        imageView = findViewById(R.id.imageView);
+        imageView1 = findViewById(R.id.imageView1);
+        imageView2 = findViewById(R.id.imageView2);
+        imageView3 = findViewById(R.id.imageView3);
+        imageView4 = findViewById(R.id.imageView4);
+        imageView5 = findViewById(R.id.imageView5);
+        imageView6 = findViewById(R.id.imageView6);
+        imageView7 = findViewById(R.id.imageView7);
+        imageView8 = findViewById(R.id.imageView8);
+
+
         if (!bt.isBluetoothAvailable()) { //블루투스 사용 불가
             Toast.makeText(getApplicationContext()
                     , "Bluetooth is not available"
@@ -36,21 +45,102 @@ public class BluetoothActivity extends AppCompatActivity {
 
         bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() { //데이터 수신
             public void onDataReceived(byte[] data, String message) {
+
                 Log.d("DEBUG_CODE", "message : " + message);
 
                 //블루투스 데이터 수신
                 //1 - 착석 0 - 공석
 
-
                 if (message.equals("1")) {
-                    Log.d("DEBUG_CODE", "seated");
-                    imageView.setImageResource(R.drawable.seated_left);
-
-
-                } else if (message.equals("0")) {
-                    Log.d("DEBUG_CODE", "vacant");
-                    imageView.setImageResource(R.drawable.vacant_left);
+                    Log.d("DEBUG_CODE", "A1 seated");
+                    imageView1.setImageResource(R.drawable.seated_left);
                 }
+                if (message.equals("2")) {
+                    Log.d("DEBUG_CODE", "A2 seated");
+                    imageView2.setImageResource(R.drawable.seated_left);
+                }
+
+                if (message.equals("3")) {
+                    Log.d("DEBUG_CODE", "A3 seated");
+                    imageView3.setImageResource(R.drawable.seated_left);
+                }
+
+                if (message.equals("4")) {
+                    Log.d("DEBUG_CODE", "A4 seated");
+                    imageView4.setImageResource(R.drawable.seated_left);
+                }
+
+                //왼쪽
+
+                if (message.equals("5")) {
+                    Log.d("DEBUG_CODE", "A5 seated");
+                    imageView5.setImageResource(R.drawable.seated_right);
+                }
+
+                if (message.equals("6")) {
+                    Log.d("DEBUG_CODE", "A6 seated");
+                    imageView6.setImageResource(R.drawable.seated_right);
+                }
+
+                if (message.equals("7")) {
+                    Log.d("DEBUG_CODE", "A7 seated");
+                    imageView7.setImageResource(R.drawable.seated_right);
+                }
+
+                if (message.equals("8")) {
+                    Log.d("DEBUG_CODE", "A8 seated");
+                    imageView8.setImageResource(R.drawable.seated_right);
+                }
+
+                //착석 코드
+
+
+                if (message.equals("a")) {
+                    Log.d("DEBUG_CODE", "A1 vacant");
+                    imageView1.setImageResource(R.drawable.vacant_left);
+                }
+                if (message.equals("b")) {
+
+                    Log.d("DEBUG_CODE", "A2 vacant");
+                    imageView2.setImageResource(R.drawable.vacant_left);
+                }
+
+                if (message.equals("c")) {
+                    Log.d("DEBUG_CODE", "A3 vacant");
+                    imageView3.setImageResource(R.drawable.vacant_left);
+                }
+
+                if (message.equals("d")) {
+                    Log.d("DEBUG_CODE", "A4 vacant");
+                    imageView4.setImageResource(R.drawable.vacant_left);
+                }
+
+                //왼쪽
+
+                if (message.equals("e")) {
+                    Log.d("DEBUG_CODE", "A5 vacant");
+                    imageView5.setImageResource(R.drawable.vacant_right);
+                }
+
+                if (message.equals("f")) {
+                    Log.d("DEBUG_CODE", "A6 vacant");
+                    imageView6.setImageResource(R.drawable.vacant_right);
+                }
+
+                if (message.equals("g")) {
+                    Log.d("DEBUG_CODE", "A7 vacant");
+                    imageView7.setImageResource(R.drawable.vacant_right);
+                }
+
+                if (message.equals("h")) {
+                    Log.d("DEBUG_CODE", "A8 vacant");
+                    imageView8.setImageResource(R.drawable.vacant_right);
+                }
+
+                //공석 코드
+
+
+
             }
         });
 
@@ -105,12 +195,7 @@ public class BluetoothActivity extends AppCompatActivity {
     }
 
     public void setup() {
-        Button btnSend = findViewById(R.id.btnSend); //데이터 전송
-        btnSend.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                bt.send("Text", true);
-            }
-        });
+
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
