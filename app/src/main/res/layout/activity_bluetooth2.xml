@@ -7,7 +7,6 @@
     tools:context=".BluetoothActivity">
 
 
-    출처: https://blog.codejun.space/13 [CodeJUN]
 
     <ImageView
         android:id="@+id/imageView4"
@@ -127,28 +126,13 @@
         app:srcCompat="@drawable/vacant_right" />
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/imageView3"
         android:layout_width="43dp"
         android:layout_height="49dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/imgRandom2"
         app:srcCompat="@drawable/vacant_left" />
-
-    <TextView
-        android:id="@+id/textTimeTable"
-        android:layout_width="164dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginLeft="72dp"
-        android:layout_marginBottom="28dp"
-        android:gravity="center"
-        android:text="1-1"
-        android:textColor="@android:color/background_dark"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/divider3"
-        app:layout_constraintStart_toEndOf="@+id/btnConnect" />
 
     <TextView
         android:id="@+id/textTimeTable4"
@@ -166,32 +150,22 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textStationName" />
+        app:layout_constraintTop_toBottomOf="@+id/textStationName2" />
 
-    <ImageButton
-        android:id="@+id/btnConnect"
-        android:layout_width="41dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="100dp"
-        android:background="@color/colorPrimary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/stat_sys_data_bluetooth" />
-
-    <Button
-        android:id="@+id/btnNextStation"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/textTimeTable2"
+        android:layout_width="164dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="104dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:background="@color/colorPrimary"
-        android:text="다음 칸"
-        android:textColor="@color/common_google_signin_btn_text_dark_default"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="72dp"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="48dp"
+        android:gravity="center"
+        android:text="1-2"
+        android:textColor="@android:color/background_dark"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/btnConnect2"
+        app:layout_constraintTop_toBottomOf="@+id/textStationName2" />
 
     <View
         android:id="@+id/divider3"
@@ -199,14 +173,14 @@
         android:layout_height="4dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="56dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:background="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnNextStation" />
+        app:layout_constraintTop_toTopOf="@+id/btnPreviousStation" />
 
     <View
         android:id="@+id/divider4"
@@ -222,22 +196,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView8" />
-
-    <TextView
-        android:id="@+id/textStationName"
-        android:layout_width="0dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:gravity="center"
-        android:text="TextView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView5"
@@ -262,5 +220,46 @@
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
         app:layout_constraintStart_toEndOf="@+id/imgRandom4"
         app:layout_constraintTop_toBottomOf="@+id/divider4" />
+
+    <Button
+        android:id="@+id/btnPreviousStation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/colorPrimary"
+        android:text="이전칸"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnConnect2"
+        android:layout_width="41dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="100dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/stat_sys_data_bluetooth" />
+
+    <TextView
+        android:id="@+id/textStationName2"
+        android:layout_width="0dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

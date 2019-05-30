@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +40,8 @@ public class StationInfo extends AppCompatActivity {
     //OKHttp - > 안드로이드 http 커넥션을 쉽게 도와주는 라이브러리 사용
     OkHttpClient okHttpClient;
 
-    Button btnRefresh, btnMap, btnUpSeat,btnNear;
+    Button btnMap, btnUpSeat, btnNear;
+    ImageButton btnRefresh;
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -61,7 +63,7 @@ public class StationInfo extends AppCompatActivity {
 
         btnUpSeat = findViewById(R.id.btnUpSeat);
         btnMap = findViewById(R.id.btnMap);
-        btnRefresh = findViewById(R.id.btnReFresh);
+        btnRefresh = findViewById(R.id.btnRefresh);
         btnNear = findViewById(R.id.btnNear);
 
 
@@ -114,7 +116,7 @@ public class StationInfo extends AppCompatActivity {
         //호출 url과 역의 이름을 합쳐준다 url+stationName
         URL = URL.concat(stationName);
 
-        Log.d("DEBUG_CODE","URL : " + URL);
+        Log.d("DEBUG_CODE", "URL : " + URL);
 
         //합쳐진 URl을 넣어주고
         final String finalURL = URL;
@@ -139,9 +141,9 @@ public class StationInfo extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), GoogleMapActivity.class);
                 //인텐트로 값을 넘겨준다
-                intent.putExtra("stationName",station.stationName); //역 이름
-                intent.putExtra("stationX",station.latitude); //x좌표
-                intent.putExtra("stationY",station.longitude); //y좌표
+                intent.putExtra("stationName", station.stationName); //역 이름
+                intent.putExtra("stationX", station.latitude); //x좌표
+                intent.putExtra("stationY", station.longitude); //y좌표
                 startActivity(intent);
 
             }
@@ -154,6 +156,7 @@ public class StationInfo extends AppCompatActivity {
                 //지하철 좌석표 보기, BluetoothActivity 로 넘어감
 
                 Intent intent = new Intent(getApplicationContext(), BluetoothActivity.class);
+                intent.putExtra("stationName", nextStation.stationName); //다음행 역정보를 넘겨준다
                 startActivity(intent);
             }
         });
@@ -166,7 +169,7 @@ public class StationInfo extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), NearSubway.class);
                 intent.putExtra("stationX", station.longitude);
-                intent.putExtra("stationY",station.latitude);
+                intent.putExtra("stationY", station.latitude);
                 startActivity(intent);
                 finish();
             }
@@ -212,7 +215,7 @@ public class StationInfo extends AppCompatActivity {
 
                 } catch (IOException e) {
                     //데이터 호출 오류 처리
-                    Toast.makeText(getApplicationContext(),"일시적인 오류입니다. 새로고침 해주세요",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "일시적인 오류입니다. 새로고침 해주세요", Toast.LENGTH_SHORT).show();
                 }
                 return data;
             }
@@ -241,7 +244,7 @@ public class StationInfo extends AppCompatActivity {
 
                         //합쳐진 메세지들을 차례대로 넣어준다
                         arrivalMessage += tempTrainLineNm + " : " + tempArrive + "\n\n"; //ex) 동인천행 전역도착
-                                                                                         //  ) 인천급행 3분전
+                        //  ) 인천급행 3분전
 
 
                     }

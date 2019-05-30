@@ -19,7 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GoogleMapActivity"></activity>
+        <activity android:name=".BluetoothActivity2"></activity>
+        <activity android:name=".GoogleMapActivity" />
         <activity android:name=".StationInfo" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -42,7 +43,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAKc8sc30Dk8v2xdVyu7ybjCLD61UIucjs"/>
+            android:value="AIzaSyAKc8sc30Dk8v2xdVyu7ybjCLD61UIucjs" />
     </application>
 
 </manifest>

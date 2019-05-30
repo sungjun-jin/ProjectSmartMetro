@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="90dp">
+    android:layout_height="70dp"
+    android:scrollbars="vertical">
 
     <TextView
         android:id="@+id/textLaneName"
@@ -16,6 +17,7 @@
         android:singleLine="true"
         android:text="2호선"
         android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,6 +32,7 @@
         android:layout_marginBottom="20dp"
         android:gravity="center"
         android:text="서울특별시"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textLaneName"
         app:layout_constraintTop_toBottomOf="@+id/textStationName" />
@@ -42,6 +45,7 @@
         android:layout_marginLeft="8dp"
         android:gravity="center"
         android:text="강남구"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         app:layout_constraintBottom_toBottomOf="@+id/textStationCity"
         app:layout_constraintStart_toEndOf="@+id/textStationCity"
         app:layout_constraintTop_toTopOf="@+id/textStationCity" />
@@ -55,6 +59,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="역삼동"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         app:layout_constraintBottom_toBottomOf="@+id/textStationCity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -71,6 +76,7 @@
         android:layout_marginRight="8dp"
         android:text="강남역"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textLaneName"
         app:layout_constraintTop_toTopOf="@+id/textLaneName" />

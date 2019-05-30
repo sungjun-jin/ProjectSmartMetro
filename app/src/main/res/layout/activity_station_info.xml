@@ -10,11 +10,12 @@
         android:id="@+id/textPrevious"
         android:layout_width="120dp"
         android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:gravity="center"
         android:hint="이전역"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textStation" />
@@ -32,7 +33,7 @@
         android:hint="현재역"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toStartOf="@+id/textNext"
-        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toEndOf="@+id/textPrevious"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,11 +41,12 @@
         android:id="@+id/textNext"
         android:layout_width="120dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:gravity="center"
         android:hint="다음역"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textStation" />
@@ -53,14 +55,11 @@
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:text="이전역"
-        app:layout_constraintEnd_toStartOf="@+id/textView8"
-        app:layout_constraintHorizontal_bias="0.144"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textPrevious" />
 
@@ -69,9 +68,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="56dp"
-        android:layout_marginRight="56dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginRight="44dp"
         android:text="다음역"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textNext" />
 
@@ -79,14 +79,14 @@
         android:id="@+id/textView9"
         android:layout_width="136dp"
         android:layout_height="33dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:gravity="center"
         android:text="주소 및 전화번호"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.059"
+        app:layout_constraintHorizontal_bias="0.014"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnMap" />
 
@@ -95,7 +95,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="주소 : "
+        android:text=" 주소 : "
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         app:layout_constraintStart_toStartOf="@+id/textView9"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
@@ -106,10 +107,11 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text=" 전화번호 : "
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView9"
         app:layout_constraintTop_toBottomOf="@+id/textView11"
-        app:layout_constraintVertical_bias="0.012" />
+        app:layout_constraintVertical_bias="0.015" />
 
     <TextView
         android:id="@+id/textAddress"
@@ -120,6 +122,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="TextView"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView11"
         app:layout_constraintTop_toTopOf="@+id/textView11" />
@@ -133,6 +136,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="TextView"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         app:layout_constraintBottom_toBottomOf="@+id/textView12"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView12"
@@ -142,21 +146,15 @@
         android:id="@+id/textLaneName"
         android:layout_width="257dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
         android:layout_marginBottom="8dp"
-        android:gravity="center"
-        android:text="TextView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toTopOf="@+id/textStation"
-        app:layout_constraintEnd_toStartOf="@+id/btnReFresh"
-        app:layout_constraintHorizontal_bias="0.023"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        android:gravity="center_vertical"
+        android:text="수도권 1호선"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textView9"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textArrival"
@@ -167,7 +165,8 @@
         android:layout_marginTop="36dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:textSize="12sp"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -176,7 +175,7 @@
 
     <Button
         android:id="@+id/btnUpSeat"
-        android:layout_width="130dp"
+        android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
@@ -184,7 +183,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="상행 지하철 좌석 보기"
+        android:background="@color/colorPrimary"
+        android:text="지하철 좌석 보기"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         app:layout_constraintBottom_toBottomOf="@+id/btnMap"
         app:layout_constraintEnd_toStartOf="@+id/btnMap"
         app:layout_constraintStart_toStartOf="parent"
@@ -193,38 +194,41 @@
 
     <Button
         android:id="@+id/btnMap"
-        android:layout_width="130dp"
+        android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:background="@color/colorPrimary"
         android:text="지도보기"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         app:layout_constraintEnd_toStartOf="@+id/btnNear"
         app:layout_constraintTop_toBottomOf="@+id/textArrival" />
 
     <Button
-        android:id="@+id/btnReFresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="새로고침"
-        app:layout_constraintBottom_toBottomOf="@+id/textLaneName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
         android:id="@+id/btnNear"
-        android:layout_width="100dp"
+        android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
+        android:background="@color/colorPrimary"
         android:text="주변역 검색"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         app:layout_constraintBottom_toBottomOf="@+id/btnMap"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btnMap"
         app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/btnRefresh"
+        android:layout_width="32dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/stat_notify_sync" />
 
 </android.support.constraint.ConstraintLayout>

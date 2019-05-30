@@ -31,7 +31,7 @@ public class NearSubway extends AppCompatActivity {
 
     ArrayList<Station> stations = new ArrayList<>();
 
-    // 주변 역정보를 보여주는 액티비티
+    // 반경 3km 내 주변 역정보를 보여주는 액티비티
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -49,13 +49,13 @@ public class NearSubway extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        double longitude = intent.getDoubleExtra("stationX",0); //호출한 액티비티로 부터 x좌표를 전달받는다
-        double latitude = intent.getDoubleExtra("stationY",0);//호출한 액티비티로 부터 y좌표를 전달받는다
+        double longitude = intent.getDoubleExtra("stationX", 0); //호출한 액티비티로 부터 x좌표를 전달받는다
+        double latitude = intent.getDoubleExtra("stationY", 0);//호출한 액티비티로 부터 y좌표를 전달받는다
         strLatitude = Double.toString(latitude);
         strLongitude = Double.toString(longitude);
 
-        Log.d("DEBUG_CODE","x : " + strLongitude);
-        Log.d("DEBUG_CODE","y : " + strLatitude);
+        Log.d("DEBUG_CODE", "x : " + strLongitude);
+        Log.d("DEBUG_CODE", "y : " + strLatitude);
 
 
         // API 호출 호출한 액티비티의 x,y좌표로부터 반경 3km 안의 역들을 호출

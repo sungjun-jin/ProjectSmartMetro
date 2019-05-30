@@ -17,34 +17,34 @@ import app.akexorcist.bluetotohspp.library.BluetoothSPP;
 import app.akexorcist.bluetotohspp.library.BluetoothState;
 import app.akexorcist.bluetotohspp.library.DeviceList;
 
-public class BluetoothActivity extends AppCompatActivity {
+public class BluetoothActivity2 extends AppCompatActivity {
 
     private BluetoothSPP bt;
-    ImageView imageView1, imageView2, imageView3, imageView4;
-    TextView textStationName;
-    Button btnNextStation;
+    ImageView imageView5, imageView6, imageView7, imageView8;
+    TextView textStationName2;
+
+    Button btnPreviousStation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bluetooth);
+        setContentView(R.layout.activity_bluetooth2);
 
         setTitle("지하철 좌석 보기");
         bt = new BluetoothSPP(this); //Initializing
 
-        imageView1 = findViewById(R.id.imageView1);
-        imageView2 = findViewById(R.id.imageView4);
-        imageView3 = findViewById(R.id.imageView2);
-        imageView4 = findViewById(R.id.imageView8);
+        imageView5 = findViewById(R.id.imageView8); //왼쪽 위
+        imageView6 = findViewById(R.id.imageView4);
+        imageView7 = findViewById(R.id.imageView3);
+        imageView8 = findViewById(R.id.imageView2); //오른쪽 아래
 
-        textStationName = findViewById(R.id.textStationName);
+        textStationName2 = findViewById(R.id.textStationName2);
 
-        btnNextStation = findViewById(R.id.btnNextStation);
+        btnPreviousStation = findViewById(R.id.btnPreviousStation);
 
-        final Intent intent = getIntent();
-
-        final String stationName = intent.getStringExtra("stationName");
-        textStationName.setText(stationName + "행"); //다음역 + 행 으로 문자열 합치기 ex)강남행
+        Intent intent = getIntent();
+        String stationName = intent.getStringExtra("stationName");
+        textStationName2.setText(stationName + "행"); //다음역 + 행 으로 문자열 합치기 ex)강남행
 
 
         if (!bt.isBluetoothAvailable()) { //블루투스 사용 불가
@@ -54,6 +54,7 @@ public class BluetoothActivity extends AppCompatActivity {
             finish();
         }
 
+
         bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() { //데이터 수신
             public void onDataReceived(byte[] data, String message) {
 
@@ -62,26 +63,26 @@ public class BluetoothActivity extends AppCompatActivity {
                 //블루투스 데이터 수신
                 //1 - 착석 0 - 공석
 
-                if (message.equals("1")) {
+                if (message.equals("5")) {
                     Log.d("DEBUG_CODE", "A1 seated");
-                    imageView1.setImageResource(R.drawable.seated_left);
+                    imageView6.setImageResource(R.drawable.seated_right);
 
                 }
-                if (message.equals("2")) {
+                if (message.equals("6")) {
                     Log.d("DEBUG_CODE", "A2 seated");
-                    imageView2.setImageResource(R.drawable.seated_right);
+                    imageView8.setImageResource(R.drawable.seated_left);
 
                 }
 
-                if (message.equals("3")) {
+                if (message.equals("7")) {
                     Log.d("DEBUG_CODE", "A3 seated");
-                    imageView3.setImageResource(R.drawable.seated_left);
+                    imageView5.setImageResource(R.drawable.seated_right);
 
                 }
 
-                if (message.equals("4")) {
+                if (message.equals("8")) {
                     Log.d("DEBUG_CODE", "A4 seated");
-                    imageView4.setImageResource(R.drawable.seated_right);
+                    imageView7.setImageResource(R.drawable.seated_left);
 
                 }
 
@@ -89,41 +90,40 @@ public class BluetoothActivity extends AppCompatActivity {
                 //착석 코드
 
 
-                if (message.equals("a")) {
+                if (message.equals("e")) {
                     Log.d("DEBUG_CODE", "A1 vacant");
-                    imageView1.setImageResource(R.drawable.vacant_left);
+                    imageView6.setImageResource(R.drawable.vacant_right); //오른쪽 위
 
                 }
-                if (message.equals("b")) {
+                if (message.equals("f")) {
 
                     Log.d("DEBUG_CODE", "A2 vacant");
-                    imageView2.setImageResource(R.drawable.vacant_right);
+                    imageView8.setImageResource(R.drawable.vacant_left); //왼쪽 아래
 
                 }
 
-                if (message.equals("c")) {
+                if (message.equals("g")) {
                     Log.d("DEBUG_CODE", "A3 vacant");
-                    imageView3.setImageResource(R.drawable.vacant_left);
-
+                    imageView5.setImageResource(R.drawable.vacant_right); //오른쪽 아래
                 }
 
-                if (message.equals("d")) {
+                if (message.equals("h")) {
                     Log.d("DEBUG_CODE", "A4 vacant");
-                    imageView4.setImageResource(R.drawable.vacant_right);
+                    imageView7.setImageResource(R.drawable.vacant_left); //왼쪽 아래
 
                 }
+
                 //왼쪽
+
+
             }
         });
 
-        btnNextStation.setOnClickListener(new View.OnClickListener() {
+        btnPreviousStation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent intentNext = new Intent(getApplicationContext(), BluetoothActivity2.class);
-                intentNext.putExtra("stationName", stationName);
-                startActivity(intentNext);
-                bt.stopService(); //블루투스 중지
+                //이전 칸으로
+                finish();
 
             }
         });
@@ -147,7 +147,7 @@ public class BluetoothActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton btnConnect = findViewById(R.id.btnConnect); //연결시도
+        ImageButton btnConnect = findViewById(R.id.btnConnect2); //연결시도
         btnConnect.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (bt.getServiceState() == BluetoothState.STATE_CONNECTED) {
