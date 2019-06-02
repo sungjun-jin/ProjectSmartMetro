@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
                 //지하철역 검색
                 Intent intent = new Intent(getApplicationContext(), StationSearch.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

@@ -170,7 +170,7 @@ public class StationInfo extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), NearSubway.class);
                 intent.putExtra("stationX", station.longitude);
                 intent.putExtra("stationY", station.latitude);
-                intent.putExtra("stationName",stationName);
+                intent.putExtra("stationName", stationName);
                 startActivity(intent);
             }
         });

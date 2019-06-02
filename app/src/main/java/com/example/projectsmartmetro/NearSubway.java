@@ -62,7 +62,7 @@ public class NearSubway extends AppCompatActivity {
         Log.d("DEBUG_CODE", "x : " + strLongitude);
         Log.d("DEBUG_CODE", "y : " + strLatitude);
 
-        textTitle.setText(stationName+"역");
+        textTitle.setText(stationName + "역");
 
 
         // API 호출 호출한 액티비티의 x,y좌표로부터 반경 3km 안의 역들을 호출
