@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.odsay.odsayandroidsdk.API;
@@ -28,6 +29,7 @@ public class NearSubway extends AppCompatActivity {
     String strLatitude;
     String strLongitude;
     RecyclerView recyclerViewMap;
+    TextView textTitle;
 
     ArrayList<Station> stations = new ArrayList<>();
 
@@ -38,6 +40,7 @@ public class NearSubway extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_near_subway);
         recyclerViewMap = findViewById(R.id.recyclerViewMap);
+        textTitle = findViewById(R.id.textTitle);
 
         setTitle("주변역 찾기");
         //위치 관리자 객체 참조
@@ -54,8 +57,12 @@ public class NearSubway extends AppCompatActivity {
         strLatitude = Double.toString(latitude);
         strLongitude = Double.toString(longitude);
 
+        String stationName = intent.getStringExtra("stationName");
+
         Log.d("DEBUG_CODE", "x : " + strLongitude);
         Log.d("DEBUG_CODE", "y : " + strLatitude);
+
+        textTitle.setText(stationName+"역");
 
 
         // API 호출 호출한 액티비티의 x,y좌표로부터 반경 3km 안의 역들을 호출

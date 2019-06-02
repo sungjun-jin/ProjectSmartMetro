@@ -170,8 +170,8 @@ public class StationInfo extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), NearSubway.class);
                 intent.putExtra("stationX", station.longitude);
                 intent.putExtra("stationY", station.latitude);
+                intent.putExtra("stationName",stationName);
                 startActivity(intent);
-                finish();
             }
         });
     }
@@ -215,7 +215,7 @@ public class StationInfo extends AppCompatActivity {
 
                 } catch (IOException e) {
                     //데이터 호출 오류 처리
-                    Toast.makeText(getApplicationContext(), "일시적인 오류입니다. 새로고침 해주세요", Toast.LENGTH_SHORT).show();
+
                 }
                 return data;
             }

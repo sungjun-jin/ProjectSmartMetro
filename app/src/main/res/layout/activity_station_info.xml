@@ -32,6 +32,7 @@
         android:gravity="center"
         android:hint="현재역"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/textNext"
         app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toEndOf="@+id/textPrevious"
