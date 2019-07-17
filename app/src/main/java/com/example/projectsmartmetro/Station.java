@@ -22,7 +22,6 @@ public class Station {
     //정류장 ID
     int stationID;
 
-
     //정류장 경위도
     double longitude;
     double latitude;
